@@ -7,7 +7,7 @@ html, body {
 
 /* Efekt parallax tła */
 body {
-  background-image: url('images.jpg'); /* ← zamień na swoją nazwę pliku lub link */
+  background-image: url(''); /* ← zamień na swoją nazwę pliku lub link */
   background-attachment: fixed;
   background-position: center;
   background-repeat: no-repeat;
