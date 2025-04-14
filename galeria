@@ -1,0 +1,26 @@
+.galeria {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 15px;
+  padding: 20px;
+  margin: 30px auto;
+  background-color: #f0f0f0;
+  border: 3px solid #ccc;
+  border-radius: 12px;
+  max-width: 900px;
+  justify-content: center;
+  box-shadow: 0 0 20px rgba(0,0,0,0.1);
+}
+
+.galeria a img {
+  width: 200px;
+  height: auto;
+  border-radius: 8px;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  cursor: pointer;
+}
+
+.galeria a img:hover {
+  transform: scale(1.05);
+  box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+}
