@@ -1,0 +1,15 @@
+
+html, body {
+  margin: 0;
+  padding: 0;
+  height: 100%;
+}
+
+/* Efekt parallax tła */
+body {
+  background-image: url('twoje-zdjecie.jpg'); /* ← zamień na swoją nazwę pliku lub link */
+  background-attachment: fixed;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+}
