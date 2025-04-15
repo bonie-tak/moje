@@ -1,6 +1,6 @@
 body {
   font-family: Arial, sans-serif;
-  background-color: #e8f4fc;
+  background-color: #e6f2ff;
   color: #333;
   margin: 0;
   padding: 0;
@@ -8,15 +8,14 @@ body {
 }
 
 header {
-  background-color: #008cba;
+  background-color: #0077b6;
   color: white;
   padding: 30px 15px;
-  border-bottom: 4px solid #005f7a;
 }
 
 main {
   padding: 40px 20px;
-  max-width: 1000px;
+  max-width: 1200px;
   margin: 0 auto;
 }
 
@@ -31,10 +30,11 @@ footer {
 a {
   display: inline-block;
   margin-top: 20px;
-  color: #008cba;
+  color: #0077b6;
   text-decoration: none;
 }
 
+/* Blok z obrazkiem i opisem */
 .blok {
   display: flex;
   flex-wrap: wrap;
@@ -58,4 +58,21 @@ a {
 .opis {
   max-width: 500px;
   text-align: left;
+}
+
+/* Sekcje obok siebie */
+.dwie-obok {
+  display: flex;
+  gap: 20px;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.blok.mniejszy {
+  flex: 1 1 45%;
+}
+
+/* Obrazek wystający poza ramkę */
+.poza-ramka {
+  transform: translateX(-30px);
 }
