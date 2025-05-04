@@ -36,3 +36,11 @@ body {
   padding: 10px;
   font-size: 14px;
 }
+.galeria {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center; /* Wyśrodkowanie wszystkich elementów */
+  gap: 20px; /* Odstępy między kafelkami */
+  padding: 20px;
+}
+
