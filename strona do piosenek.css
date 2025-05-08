@@ -49,8 +49,9 @@ body {
 }
 .arrow-button {
   position: fixed;
-  bottom: 30px;
+  top: 50%;
   right: 30px;
+  transform: translateY(-50%);
   width: 50px;
   height: 50px;
   background-color: #1f2937;
@@ -68,8 +69,9 @@ body {
 
 .arrow-button:hover {
   background-color: #374151;
-  transform: scale(1.1);
+  transform: translateY(-50%) scale(1.1);
 }
+
 
 
 
