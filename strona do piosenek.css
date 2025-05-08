@@ -48,17 +48,21 @@ body {
   padding: 20px;
 }
 .arrow-button {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
+  position: fixed;
+  bottom: 30px;
+  right: 30px;
   width: 50px;
   height: 50px;
-  background-color: #1f2937; /* ciemny szary */
+  background-color: #1f2937;
   color: white;
   font-size: 24px;
   text-decoration: none;
   border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   box-shadow: 0 4px 6px rgba(0,0,0,0.2);
+  z-index: 999;
   transition: background-color 0.3s ease, transform 0.2s ease;
 }
 
@@ -66,5 +70,6 @@ body {
   background-color: #374151;
   transform: scale(1.1);
 }
+
 
 
