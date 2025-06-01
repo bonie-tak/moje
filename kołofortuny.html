@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+  <meta charset="UTF-8">
+  <title>Koło Fortuny</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <div class="wheel-container">
+    <div class="pointer"></div>
+    <div class="wheel" id="wheel">
+      <div class="segment"></div>
+      <div class="segment"></div>
+      <div class="segment"></div>
+      <div class="segment"></div>
+      <div class="segment"></div>
+      <div class="segment"></div>
+    </div>
+  </div>
+
+  <button onclick="spin()">Zakreć!</button>
+
+  <script>
+    const wheel = document.getElementById("wheel");
+    let deg = 0;
+
+    function spin() {
+      const random = Math.floor(Math.random() * 360) + 1800; // min. 5 obrotów
+      deg += random;
+      wheel.style.transform = `rotate(${deg}deg)`;
+    }
+  </script>
+
+</body>
+</html>
