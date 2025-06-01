@@ -7,7 +7,7 @@
 </head>
 <body>
 
-  <h1>🎰 Jednoręki Bandyta 5x</h1>
+  <h1>🎰 Kasyno online 🎰</h1>
   <div class="coins">Monety: <span id="coins">10</span></div>
 
   <div class="slot-machine">
@@ -25,7 +25,7 @@
 
   <script>
     const symbols = ["🍒", "🍋", "🍇", "💎", "🔔", "⭐"];
-    let coins = 10;
+    let coins = 15;
 
     function getRandomSymbol() {
       return symbols[Math.floor(Math.random() * symbols.length)];
@@ -92,9 +92,9 @@
         const s3 = symbols[i + 2];
 
         if (s1 === s2 && s2 === s3) {
-          maxWin = Math.max(maxWin, 5); // 3 symbole
-          if (symbols[i + 3] === s1) maxWin = Math.max(maxWin, 10); // 4 symbole
-          if (symbols[i + 3] === s1 && symbols[i + 4] === s1) maxWin = 20; // 5 symboli
+          maxWin = Math.max(maxWin, 7); // 3 symbole
+          if (symbols[i + 3] === s1) maxWin = Math.max(maxWin, 15); // 4 symbole
+          if (symbols[i + 3] === s1 && symbols[i + 4] === s1) maxWin = 25; // 5 symboli
         }
       }
 
