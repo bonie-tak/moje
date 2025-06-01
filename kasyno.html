@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+  <meta charset="UTF-8">
+  <title>Maszyna Kasyno</title>
+  <link rel="stylesheet" href="kasyno.css">
+</head>
+<body>
+
+  <h1>🎰 Jednoręki Bandyta</h1>
+
+  <div class="slot-machine">
+    <div id="reel1" class="reel">🍒</div>
+    <div id="reel2" class="reel">🍋</div>
+    <div id="reel3" class="reel">🍇</div>
+  </div>
+
+  <button onclick="spin()">Zakręć!</button>
+
+  <div id="result" class="result"></div>
+
+  <script>
+    const symbols = ["🍒", "🍋", "🍇", "💎", "🔔", "⭐"];
+
+    function getRandomSymbol() {
+      return symbols[Math.floor(Math.random() * symbols.length)];
+    }
+
+    function spin() {
+      const reel1 = document.getElementById("reel1");
+      const reel2 = document.getElementById("reel2");
+      const reel3 = document.getElementById("reel3");
+      const result = document.getElementById("result");
+
+      // losuj symbole
+      const s1 = getRandomSymbol();
+      const s2 = getRandomSymbol();
+      const s3 = getRandomSymbol();
+
+      // pokaż symbole
+      reel1.textContent = s1;
+      reel2.textContent = s2;
+      reel3.textContent = s3;
+
+      // sprawdź wynik
+      if (s1 === s2 && s2 === s3) {
+        result.textContent = "🎉 WYGRAŁEŚ!";
+        result.style.color = "green";
+      } else {
+        result.textContent = "😞 Spróbuj ponownie";
+        result.style.color = "red";
+      }
+    }
+  </script>
+
+</body>
+</html>
