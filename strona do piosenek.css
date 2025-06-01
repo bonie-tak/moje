@@ -45,8 +45,7 @@ body {
   font-size: 14px;
 }
 
-  padding: 20px;
-}
+
 .arrow-button {
   position: fixed;
   top: 50%;
@@ -58,19 +57,15 @@ body {
   color: white;
   font-size: 24px;
   text-decoration: none;
-  border-radius: 8px 0 0 8px; /* Zaokrąglenie tylko z lewej strony */
+  border-radius: 8px 0 0 8px;
   display: flex;
   align-items: center;
   justify-content: center;
   box-shadow: 0 4px 6px rgba(0,0,0,0.2);
-  z-index: 999;
+  z-index: 10000; /* Bardzo wysoki, by był nad wszystkim */
   transition: background-color 0.3s ease, transform 0.2s ease;
 }
 
-.arrow-button:hover {
-  background-color: #374151;
-  transform: translateY(-50%) scale(1.1);
-}
 
 
 
