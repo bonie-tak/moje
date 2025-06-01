@@ -29,16 +29,17 @@ h1 {
   font-size: 60px;
   background: #fff;
   color: #111;
-  padding: 25px 35px;
+  padding: 20px 30px;
   border-radius: 12px;
   border: 3px solid #333;
-  width: 90px;
-  height: 90px;
+  width: 80px;
+  height: 80px;
   display: flex;
   align-items: center;
   justify-content: center;
   box-shadow: 0 6px 15px rgba(255, 215, 0, 0.3);
 }
+
 
 button {
   padding: 12px 28px;
