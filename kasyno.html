@@ -2,18 +2,20 @@
 <html lang="pl">
 <head>
   <meta charset="UTF-8">
-  <title>Maszyna Kasyno</title>
+  <title>Maszyna Kasyno – 5 Bębnów</title>
   <link rel="stylesheet" href="kasyno.css">
 </head>
 <body>
 
-  <h1>🎰 Jednoręki Bandyta</h1>
+  <h1>🎰 Jednoręki Bandyta 5x</h1>
   <div class="coins">Monety: <span id="coins">10</span></div>
 
   <div class="slot-machine">
     <div id="reel1" class="reel">❓</div>
     <div id="reel2" class="reel">❓</div>
     <div id="reel3" class="reel">❓</div>
+    <div id="reel4" class="reel">❓</div>
+    <div id="reel5" class="reel">❓</div>
   </div>
 
   <button onclick="spin()">Zakręć (-1 moneta)</button>
@@ -36,52 +38,70 @@
 
     function spin() {
       if (coins <= 0) {
-        alert("Brak monet! Odśwież stronę, by zacząć od nowa.");
+        alert("Brak monet!");
         return;
       }
 
-      updateCoins(-1); // koszt gry
+      updateCoins(-1);
 
-      const reel1 = document.getElementById("reel1");
-      const reel2 = document.getElementById("reel2");
-      const reel3 = document.getElementById("reel3");
-      const result = document.getElementById("result");
+      const reels = [];
+      for (let i = 1; i <= 5; i++) {
+        reels.push(document.getElementById(`reel${i}`));
+      }
+
+      const resultEl = document.getElementById("result");
       const sound = document.getElementById("slot-sound");
 
-      result.textContent = "";
-
+      resultEl.textContent = "";
       sound.currentTime = 0;
       sound.play();
 
       let i = 0;
       const interval = setInterval(() => {
-        reel1.textContent = getRandomSymbol();
-        reel2.textContent = getRandomSymbol();
-        reel3.textContent = getRandomSymbol();
+        for (const reel of reels) {
+          reel.textContent = getRandomSymbol();
+        }
         i++;
         if (i > 15) {
           clearInterval(interval);
 
-          const s1 = getRandomSymbol();
-          const s2 = getRandomSymbol();
-          const s3 = getRandomSymbol();
+          // Finalne symbole
+          const finalSymbols = reels.map(() => getRandomSymbol());
+          finalSymbols.forEach((s, i) => reels[i].textContent = s);
 
-          reel1.textContent = s1;
-          reel2.textContent = s2;
-          reel3.textContent = s3;
-
-          if (s1 === s2 && s2 === s3) {
-            result.textContent = "🎉 WYGRAŁEŚ +5 monet!";
-            result.style.color = "lime";
-            updateCoins(5);
+          // Sprawdź wygraną
+          const payout = checkWin(finalSymbols);
+          if (payout > 0) {
+            updateCoins(payout);
+            resultEl.textContent = `🎉 WYGRAŁEŚ +${payout} monet!`;
+            resultEl.style.color = "lime";
           } else {
-            result.textContent = "😞 Spróbuj ponownie";
-            result.style.color = "red";
+            resultEl.textContent = "😞 Próbuj ponownie";
+            resultEl.style.color = "red";
           }
         }
       }, 60);
+    }
+
+    function checkWin(symbols) {
+      let maxWin = 0;
+
+      for (let i = 0; i <= 2; i++) { // 3 symbole obok siebie
+        const s1 = symbols[i];
+        const s2 = symbols[i + 1];
+        const s3 = symbols[i + 2];
+
+        if (s1 === s2 && s2 === s3) {
+          maxWin = Math.max(maxWin, 5); // 3 symbole
+          if (symbols[i + 3] === s1) maxWin = Math.max(maxWin, 10); // 4 symbole
+          if (symbols[i + 3] === s1 && symbols[i + 4] === s1) maxWin = 20; // 5 symboli
+        }
+      }
+
+      return maxWin;
     }
   </script>
 
 </body>
 </html>
+
