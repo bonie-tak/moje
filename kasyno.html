@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <title>Maszyna Kasyno</title>
-  <link rel="stylesheet" href="kasyno,css">
+  <link rel="stylesheet" href="kasyno.css">
 </head>
 <body>
 
@@ -48,21 +48,18 @@
       const result = document.getElementById("result");
       const sound = document.getElementById("slot-sound");
 
-      // Wyczyść wynik
       result.textContent = "";
 
-      // Włącz dźwięk
       sound.currentTime = 0;
       sound.play();
 
-      // Animacja – losowanie przez 1 sekundę
       let i = 0;
       const interval = setInterval(() => {
         reel1.textContent = getRandomSymbol();
         reel2.textContent = getRandomSymbol();
         reel3.textContent = getRandomSymbol();
         i++;
-        if (i > 15) { // zakończ po ~1 sekundy
+        if (i > 15) {
           clearInterval(interval);
 
           const s1 = getRandomSymbol();
@@ -75,10 +72,10 @@
 
           if (s1 === s2 && s2 === s3) {
             result.textContent = "🎉 WYGRAŁEŚ +5 monet!";
-            result.style.color = "green";
+            result.style.color = "lime";
             updateCoins(5);
           } else {
-            result.textContent = "😞 Próbuj dalej";
+            result.textContent = "😞 Spróbuj ponownie";
             result.style.color = "red";
           }
         }
