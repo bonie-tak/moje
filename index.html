@@ -48,11 +48,12 @@
         </div>
 
         <div class="element">
-            <a href="ochnik strona .html" target="_blank">
-                <img src="ochnik.png" alt="Obraz 2">
-            </a>
-            <p class="opis">Czy Ochnik to morderca</p>
-        </div>
+    <a href="#" onclick="pobierzOchnika(); return false;">
+        <img src="ochnik.png" alt="Obraz 2">
+    </a>
+    <p class="opis">Czy Ochnik to morderca</p>
+</div>
+
 
         <div class="element">
             <a href="rode.html" target="_blank">
@@ -132,6 +133,24 @@
     <footer>
         <p>© 2025 Moja Strona</p>
     </footer>
+<script>
+function pobierzOchnika() {
+    const obrazy = ['1.jpg', '2.jpg', '3.jpg']; // ← wpisz tutaj nazwy swoich plików do pobrania
+    const wybrany = obrazy[Math.floor(Math.random() * obrazy.length)];
+
+    const link = document.createElement('a');
+    link.href = wybrany;
+    link.download = wybrany;
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+
+    // Po krótkim czasie — przekierowanie
+    setTimeout(() => {
+        window.location.href = 'ochnik strona .html'; // ← to jest strona docelowa
+    }, 400); // 400ms opóźnienia
+}
+</script>
 
 </body>
 </html>
