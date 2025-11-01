@@ -1,0 +1,150 @@
+<!doctype html>
+<html lang="pl">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Ruletka agentów — VALORANT</title>
+  <style>
+    :root{--size:520px}
+    body{font-family:Inter,ui-sans-serif,system-ui,Segoe UI, Roboto, "Helvetica Neue", Arial;margin:0;min-height:100vh;display:flex;align-items:center;justify-content:center;background:#0b1020;color:#e6eef8}
+    .card{width:calc(var(--size) + 40px);background:linear-gradient(180deg,#0f1724 0%, #0b1220 100%);border-radius:16px;padding:18px;box-shadow:0 10px 30px rgba(2,6,23,.6);text-align:center}
+    h1{margin:6px 0 12px;font-size:18px}
+    #wheelWrap{width:var(--size);height:var(--size);margin:0 auto;position:relative}
+    canvas{border-radius:50%;background:conic-gradient(rgba(255,255,255,0.02), transparent)}
+    .pointer{position:absolute;left:50%;top:6px;transform:translateX(-50%);width:0;height:0;border-left:12px solid transparent;border-right:12px solid transparent;border-bottom:20px solid #ff4655;filter:drop-shadow(0 3px 6px rgba(0,0,0,.6))}
+    #spinBtn{margin-top:12px;padding:10px 18px;border-radius:12px;border:0;background:#12b886;color:#04261a;font-weight:700;cursor:pointer;font-size:16px}
+    #result{margin-top:14px;display:flex;gap:12px;align-items:center;justify-content:center}
+    .avatar{width:72px;height:72px;border-radius:12px;background:linear-gradient(135deg,#0b1220,#10151f);display:flex;align-items:center;justify-content:center;font-weight:800;font-size:20px;color:#fff;box-shadow:0 6px 18px rgba(2,6,23,.6)}
+    .meta{text-align:left}
+    .meta b{display:block;font-size:18px}
+    small{opacity:.7}
+    footer{margin-top:8px;font-size:12px;color:#9fb0c6}
+    @media (max-width:700px){:root{--size:360px}.card{width:calc(var(--size) + 40px)}}
+  </style>
+</head>
+<body>
+  <div class="card">
+    <h1>Ruletka agentów VALORANT — kliknij, by zakręcić</h1>
+    <div id="wheelWrap">
+      <div class="pointer"></div>
+      <canvas id="wheel" width="520" height="520"></canvas>
+    </div>
+    <div>
+      <button id="spinBtn">Losuj agenta</button>
+    </div>
+    <div id="result" aria-live="polite">
+      <div class="avatar" id="avatar">?</div>
+      <div class="meta"><b id="agentName">—</b><small id="agentRole">—</small></div>
+    </div>
+    <footer>Źródło listy agentów: oficjalna strona VALORANT.</footer>
+  </div>
+
+<script>
+const agents = [
+  {name:'Astra', role:'Controller'},
+  {name:'Breach', role:'Initiator'},
+  {name:'Brimstone', role:'Controller'},
+  {name:'Chamber', role:'Sentinel'},
+  {name:'Clove', role:'Duelist'},
+  {name:'Cypher', role:'Sentinel'},
+  {name:'Deadlock', role:'Initiator'},
+  {name:'Fade', role:'Initiator'},
+  {name:'Gekko', role:'Initiator'},
+  {name:'Harbor', role:'Controller'},
+  {name:'Iso', role:'Duelist'},
+  {name:'Jett', role:'Duelist'},
+  {name:'KAY/O', role:'Initiator'},
+  {name:'Killjoy', role:'Sentinel'},
+  {name:'Neon', role:'Duelist'},
+  {name:'Omen', role:'Controller'},
+  {name:'Phoenix', role:'Duelist'},
+  {name:'Raze', role:'Duelist'},
+  {name:'Reyna', role:'Duelist'},
+  {name:'Sage', role:'Sentinel'},
+  {name:'Skye', role:'Initiator'},
+  {name:'Sova', role:'Initiator'},
+  {name:'Tejo', role:'Controller'},
+  {name:'Veto', role:'Sentinel'},
+  {name:'Viper', role:'Controller'},
+  {name:'Vyse', role:'Duelist'},
+  {name:'Waylay', role:'Controller'},
+  {name:'Yoru', role:'Duelist'}
+];
+
+const canvas = document.getElementById('wheel');
+const ctx = canvas.getContext('2d');
+const cx = canvas.width/2, cy = canvas.height/2, radius = Math.min(cx,cy)-8;
+let angle = 0;
+const sector = 2*Math.PI/agents.length;
+
+function drawWheel(){
+  ctx.clearRect(0,0,canvas.width,canvas.height);
+  for(let i=0;i<agents.length;i++){
+    const start = angle + i*sector;
+    const end = start + sector;
+    ctx.beginPath();
+    ctx.moveTo(cx,cy);
+    ctx.arc(cx,cy,radius,start,end);
+    ctx.closePath();
+    ctx.fillStyle = i%2===0 ? 'rgba(255,255,255,0.03)' : 'rgba(255,255,255,0.01)';
+    ctx.fill();
+    ctx.save();
+    ctx.translate(cx,cy);
+    const mid = start + sector/2;
+    ctx.rotate(mid);
+    ctx.textAlign = 'right';
+    ctx.fillStyle = '#e6eef8';
+    ctx.font = 'bold 14px system-ui, Arial';
+    ctx.fillText(agents[i].name, radius-14, 6);
+    ctx.restore();
+  }
+  ctx.beginPath(); ctx.arc(cx,cy,48,0,Math.PI*2); ctx.fillStyle='#071021'; ctx.fill();
+  ctx.fillStyle='#9fb0c6'; ctx.font='13px system-ui'; ctx.textAlign='center'; ctx.fillText('VALORANT',cx,cy-2);
+}
+
+drawWheel();
+
+const spinBtn = document.getElementById('spinBtn');
+const agentNameEl = document.getElementById('agentName');
+const agentRoleEl = document.getElementById('agentRole');
+const avatarEl = document.getElementById('avatar');
+let spinning=false;
+
+function spin(){
+  if(spinning) return; spinning=true;
+  const targetIndex = Math.floor(Math.random()*agents.length);
+  const spins = 5 + Math.floor(Math.random()*3);
+  const targetAngle = 3*Math.PI/2 - (targetIndex * sector + sector/2); // 270° = top
+  const totalRotation = spins*2*Math.PI + targetAngle;
+  const duration = 4000 + Math.random()*1000;
+  const start = performance.now();
+  const startAngle = angle;
+
+  function animate(now){
+    const t = Math.min(1,(now-start)/duration);
+    const ease = 1 - Math.pow(1-t,3);
+    angle = startAngle + (totalRotation - startAngle)*ease;
+    drawWheel();
+    if(t<1){ requestAnimationFrame(animate); }
+    else { spinning=false; showResult(targetIndex); }
+  }
+  requestAnimationFrame(animate);
+}
+
+function showResult(idx){
+  const agent = agents[idx];
+  agentNameEl.textContent = agent.name;
+  agentRoleEl.textContent = agent.role;
+  const initials = agent.name.split(/[^A-Za-z0-9]+/).map(s=>s[0]).join('').slice(0,2).toUpperCase();
+  avatarEl.textContent = initials;
+  const hash = Array.from(agent.name).reduce((a,c)=>a+c.charCodeAt(0),0);
+  const hue = hash % 360;
+  avatarEl.style.background = `linear-gradient(135deg,hsl(${hue} 70% 40%), hsl(${(hue+40)%360} 65% 30%))`;
+}
+
+spinBtn.addEventListener('click', spin);
+canvas.addEventListener('click', spin);
+</script>
+
+</body>
+</html>
