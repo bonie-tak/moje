@@ -1,0 +1,33 @@
+/* CAŁA STRONA */
+body {
+    margin: 0;
+    background-color: #000;
+    font-family: Arial, sans-serif;
+    color: white;
+}
+
+/* PASEK NA GÓRZE */
+.navbar {
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+    padding: 15px;
+    background-color: #000;
+}
+
+/* PROSTOKĄTY */
+.nav-box {
+    background-color: orange;
+    color: black;           /* CZARNE NAPISY */
+    text-decoration: none;
+    padding: 12px 20px;
+    border-radius: 8px;
+    font-weight: bold;
+    transition: 0.2s;
+}
+
+/* HOVER */
+.nav-box:hover {
+    background-color: darkorange;
+    transform: scale(1.05);
+}
